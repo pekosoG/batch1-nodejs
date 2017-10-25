@@ -1,9 +1,9 @@
-{
+module.exports={
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "password": "root",
+    "database": "chelas",
+    "host": "mysql-service",
     "dialect": "mysql"
   },
   "test": {

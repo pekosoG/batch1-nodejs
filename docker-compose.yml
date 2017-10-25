@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  mysql-service:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=chelas
+
+  node-service:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql-service
