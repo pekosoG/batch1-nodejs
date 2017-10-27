@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/graphbeer',bodyParser.json(), graphqlExpress({schema}))
-app.use('/graphbeer',bodyParser.json(), graphiqlExpress({endpointUrl:'/graphbeer'}))
+app.use('/graphiql',bodyParser.json(), graphiqlExpress({endpointURL:'/graphbeer'}))
 
 app.use('/', index);
 //app.use('/users', users);

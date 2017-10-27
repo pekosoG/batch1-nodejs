@@ -10,12 +10,42 @@ const schemaDef = `
 
     type Query{
         cervezas: [Beer]
-        cervezas(id :Int): Beer
+        cerveza(id :Int): Beer
     }
 `
 
+const resolvers = {
+    Query:{
+        cervezas: function(){
+            return [
+                {
+                    id: 1,
+                    name:"Erdinger Dunkel",
+                    alcohol: 6,
+                    brand:"Erdinger"
+                },
+                {
+                    id: 2,
+                    name:"Erdinger Pikachu",
+                    alcohol: 5,
+                    brand:"Erdinger"
+                }
+            ]
+        },
+        cerveza: function(_,args){
+            return {
+                id: 1,
+                name:"Erdinger Dunkel",
+                alcohol: 6,
+                brand:"Erdinger"
+            }
+        }
+    }
+}
+
 const schema = makeExecutableSchema({
-    "typeDefs":schemaDef
-})
+    "typeDefs":schemaDef,
+    "resolvers":resolvers
+});
 
 module.exports=schema;
