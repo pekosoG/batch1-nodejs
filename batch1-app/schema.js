@@ -1,10 +1,11 @@
 const { makeExecutableSchema, addMockFunctionsToSchema } = require('graphql-tools')
+let models = require('./db/models');
 
 const schemaDef = `
     type Beer{
         id:ID!
         name: String!
-        alcohol: Int!
+        alcohol: Float!
         brand: String!
     }
 
@@ -17,28 +18,10 @@ const schemaDef = `
 const resolvers = {
     Query:{
         cervezas: function(){
-            return [
-                {
-                    id: 1,
-                    name:"Erdinger Dunkel",
-                    alcohol: 6,
-                    brand:"Erdinger"
-                },
-                {
-                    id: 2,
-                    name:"Erdinger Pikachu",
-                    alcohol: 5,
-                    brand:"Erdinger"
-                }
-            ]
+            return models.Beer.findAll();
         },
         cerveza: function(_,args){
-            return {
-                id: 1,
-                name:"Erdinger Dunkel",
-                alcohol: 6,
-                brand:"Erdinger"
-            }
+            return models.Beer.findOne({where:{id:args.id}});
         }
     }
 }
