@@ -39,6 +39,7 @@ const schemaDef = `
     type Mutation{
         addBeer(beer: NewBeer): Beer
         updateBeer(beer: UpdateBeer): Beer
+        deleteBeer(id: Int): Beer
     }
 `
 
@@ -59,6 +60,11 @@ const resolvers = {
         updateBeer:function(_,args){
             models.Beer.update(args.beer,{where:{id:args.beer.id}});
             return models.Beer.findOne({where:{id:args.beer.id}});
+        },
+        deleteBeer: function(_,args){
+            beer= models.Beer.findOne({where:{id:args.id}});
+            models.Beer.destroy({where:{id:args.id}});
+            return beer;
         }
     }
 }
