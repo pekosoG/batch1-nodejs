@@ -1,8 +1,10 @@
+const { makeExecutableSchema, addMockFunctionsToSchema } = require('graphql-tools')
+
 const schemaDef = `
     type Beer{
         id:ID!
         name: String!
-        alcohol: Type!
+        alcohol: Int!
         brand: String!
     }
 
@@ -11,3 +13,9 @@ const schemaDef = `
         cervezas(id :Int): Beer
     }
 `
+
+const schema = makeExecutableSchema({
+    "typeDefs":schemaDef
+})
+
+module.exports=schema;

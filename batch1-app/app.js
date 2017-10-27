@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
+const schema = require('./schema')
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 let beers = require('./routes/beers');
@@ -22,6 +25,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/graphbeer',bodyParser.json(), graphqlExpress({schema}))
+app.use('/graphbeer',bodyParser.json(), graphiqlExpress({endpointUrl:'/graphbeer'}))
 
 app.use('/', index);
 //app.use('/users', users);
