@@ -6,12 +6,39 @@ const schemaDef = `
         id:ID!
         name: String!
         alcohol: Float!
-        brand: String!
+        brand: Int!
+        description: String
+        volume: Float
+        price: Float
+    }
+
+    input NewBeer {
+        name: String!
+        alcohol: Float!
+        brand: Int!
+        description: String
+        volume: Float
+        price: Float
+    }
+
+    input UpdateBeer {
+        id: Int
+        name: String
+        alcohol: Float
+        brand: Int
+        description: String
+        volume: Float
+        price: Float
     }
 
     type Query{
         cervezas: [Beer]
         cerveza(id :Int): Beer
+    }
+
+    type Mutation{
+        addBeer(beer: NewBeer): Beer
+        updateBeer(beer: UpdateBeer): Beer
     }
 `
 
@@ -23,12 +50,22 @@ const resolvers = {
         cerveza: function(_,args){
             return models.Beer.findOne({where:{id:args.id}});
         }
+    },
+
+    Mutation:{
+        addBeer: function(_,args){
+            return models.Beer.create(args.beer);
+        },
+        updateBeer:function(_,args){
+            models.Beer.update(args.beer,{where:{id:args.beer.id}});
+            return models.Beer.findOne({where:{id:args.beer.id}});
+        }
     }
 }
 
 const schema = makeExecutableSchema({
     "typeDefs":schemaDef,
-    "resolvers":resolvers
+    "resolvers":resolvers,
 });
 
 module.exports=schema;
