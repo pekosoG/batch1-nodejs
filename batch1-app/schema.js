@@ -22,7 +22,7 @@ const schemaDef = `
     }
 
     input UpdateBeer {
-        id: Int
+        id: Int!
         name: String
         alcohol: Float
         brand: Int
@@ -61,7 +61,7 @@ const resolvers = {
             models.Beer.update(args.beer,{where:{id:args.beer.id}});
             return models.Beer.findOne({where:{id:args.beer.id}});
         },
-        deleteBeer: function(_,args){
+        deleteBeer: function(_,args){–
             beer= models.Beer.findOne({where:{id:args.id}});
             models.Beer.destroy({where:{id:args.id}});
             return beer;
